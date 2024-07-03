@@ -4,7 +4,7 @@
   >
     <div>
       <Button @click="toggleSidebar()" class="bg-transparent hover:bg-gray-400">
-        <Icon :name="eyeIcon" size="20" :color="black"></Icon>
+        <Icon :name="eyeIcon" size="20" color="black"></Icon>
       </Button>
     </div>
 
