@@ -5,6 +5,7 @@ export default oauth.githubEventHandler({
     emailRequired: true,
   },
   async onSuccess(event, { user, tokens }) {
+    console.log(user, tokens);
     try {
       const response = await axios.post("http://nginx:8888/api/register", {
         name: user.name,
@@ -12,6 +13,7 @@ export default oauth.githubEventHandler({
         user_id: user.id.toString(),
         avatar_url: user.avatar_url,
         html_url: user.html_url,
+        access_token: tokens.access_token
       });
       setCookie(event, "token", response.data.token);
       setCookie(event, "authenticatedUser", JSON.stringify(response.data.user));
