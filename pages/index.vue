@@ -1,40 +1,24 @@
 <template>
-  <div class="container flex">
-    <Line :data="chartData" :options="chartOptions" />
+  <div class="container flex flex-col gap-3">
+    <Input type="text" name="repositoryName" placeholder="Find a repository" />
+    <GithubRepository v-for="dale in 3" :key="dale" :id="dale"></GithubRepository>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-import { Line } from "vue-chartjs";
+import axios from "axios";
 
-const chartData = ref({
-  labels: ["January", "February", "March", "April", "May", "June", "July"],
-  datasets: [
-    {
-      label: "Data One",
-      backgroundColor: "rgb(255,255,224)",
-      data: [40, 39, 10, 40, 39, 99, 40],
-      tension: 0.1,
-      borderColor: "rgb(123,240,0)",
-    },
-  ],
-});
-
-const chartOptions = ref({
-  responsive: true,
-  maintainAspectRatio: false,
-  plugins: {
-    custom_canvas_background_color: {
-      color: "black",
-    },
+const token = useCookie("token");
+const axiosInstance = axios.create({
+  headers: {
+    Authorization: `Bearer ${token.value}`,
+    "Content-Type": "application/json",
   },
 });
+const response = await axiosInstance.get("http://nginx:8888/api/github/repositories");
+console.log(response);
 </script>
 
 <style scoped>
-.container {
-  width: 100%;
-  height: 400px;
-}
+
 </style>
