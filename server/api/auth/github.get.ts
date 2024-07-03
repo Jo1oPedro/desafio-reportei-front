@@ -5,9 +5,9 @@ export default oauth.githubEventHandler({
     emailRequired: true,
   },
   async onSuccess(event, { user, tokens }) {
-    console.log(user);
+    //console.log(user);
     try {
-      const response = await axios.post("http://localhost:8888/api/register", {
+      const response = await axios.post("http://nginx:8888/api/register", {
         name: user.name,
         email: user.email,
         user_id: user.id.toString(),
@@ -17,6 +17,7 @@ export default oauth.githubEventHandler({
       setCookie(event, "token", response.data.token);
       return sendRedirect(event, "/");
     } catch (error) {
+      console.log(error);
       throw createError({
         statusCode: 401,
         statusMessage: "Ocorreu um erro ao autenticar",
@@ -24,6 +25,7 @@ export default oauth.githubEventHandler({
     }
   },
   onError(event, error) {
+    console.log(error);
     throw createError({
       statusCode: 401,
       statusMessage: "Ocorreu um erro ao autenticar",
