@@ -1,0 +1,10 @@
+volumes:
+  node_modules:
+services:
+  my-nuxt-app:
+    ports:
+      - "24678:24678"
+    volumes:
+      - ./:/app
+      - node_modules:/src/node_modules
+#docker compose -f docker-compose.yaml -f docker-compose.dev.yaml up --build -d
