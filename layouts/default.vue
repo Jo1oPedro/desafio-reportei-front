@@ -16,7 +16,7 @@
       <!-- Spacer to account for the fixed header height -->
       <div class="pt-6">
         <div class="relative">
-          <div class="absolute top-0 right-0">cascata</div>
+          <div class="absolute top-0 right-0"></div>
         </div>
 
         <div class="grow flex">
