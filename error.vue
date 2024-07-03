@@ -8,9 +8,9 @@
       </div>
     </div>
     <div class="mt-7 flex items-center justify-center md:min-w-10">
-      <UiButton color="emerald" variant="outline" @click="handleClearError"
-        >Go home</UiButton
-      >
+      <Button color="emerald" variant="outline" @click="handleClearError"
+        >Go home
+      </Button>
     </div>
   </div>
 </template>
