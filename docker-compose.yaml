@@ -6,3 +6,9 @@ services:
     restart: unless-stopped
     ports:
       - "3000:3000"
+    networks:
+      - missing-pets_my-shared-network
+
+networks:
+  missing-pets_my-shared-network:
+    external: true
