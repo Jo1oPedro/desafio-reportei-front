@@ -7,16 +7,10 @@
 
 <script setup lang="ts">
 import axios from "axios";
+import { useGithubStore } from "@/stores/github";
 
-const token = useCookie("token");
-const axiosInstance = axios.create({
-  headers: {
-    Authorization: `Bearer ${token.value}`,
-    "Content-Type": "application/json",
-  },
-});
-const response = await axiosInstance.get("http://nginx:8888/api/github/repositories");
-console.log(response);
+const { getAuthenticatedUser } = useGithubStore();
+getAuthenticatedUser();
 </script>
 
 <style scoped>
