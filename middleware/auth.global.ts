@@ -1,24 +1,15 @@
 export default defineNuxtRouteMiddleware((to, from) => {
-  const { authenticated } = storeToRefs(useAuthStore());
   const token = useCookie("token");
 
-  if (token.value) {
-    authenticated.value = true;
-  }
-
-  if (
-    false &&
-    token.value &&
-    (to?.name === "login" || to?.name === "register")
-  ) {
+  if (token.value && (to?.name === "login" || to?.name === "register")) {
     return navigateTo("/");
   }
 
   if (
-    false &&
     !token.value &&
     to?.name !== "login" &&
-    to?.name !== "register"
+    to?.name !== "register" &&
+    to?.name !== "auth-github-callback"
   ) {
     abortNavigation();
     return navigateTo("/login");
