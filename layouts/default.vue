@@ -34,7 +34,7 @@
 import { toast, ToastAction } from "@/components/ui/toast";
 import { storeToRefs } from "pinia";
 
-const sidebarOpen = ref(true);
+const sidebarOpen = ref(false);
 const eyeIcon = ref("mdi:hide");
 function toggleSidebar() {
   sidebarOpen.value = !sidebarOpen.value;
