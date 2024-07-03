@@ -14,6 +14,7 @@ export default oauth.githubEventHandler({
         html_url: user.html_url,
       });
       setCookie(event, "token", response.data.token);
+      setCookie(event, "authenticatedUser", JSON.stringify(response.data.user));
       return sendRedirect(event, "/");
     } catch (error) {
       console.log(error);
