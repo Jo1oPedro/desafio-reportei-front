@@ -8,7 +8,7 @@
     >
       <div class="flex items-center gap-2">
         <LayoutLogo />
-        <p class="font-bold text-sm md:text-base">Missing Pets</p>
+        <p class="font-bold text-sm md:text-base">Github Analyzer</p>
       </div>
       <Icon name="mdi:hide" size="20" @click="toggleSidebar()"></Icon>
     </header>
@@ -46,12 +46,7 @@ const items = ref([
     title: "Home",
     path: "/",
     icon: "material-symbols:home",
-  },
-  {
-    title: "Events",
-    path: "/login",
-    icon: "mdi:events",
-  },
+  }
 ]);
 </script>
 
