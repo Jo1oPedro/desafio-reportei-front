@@ -1,6 +1,6 @@
 <template>
   <div class="overflow-hidden rounded-lg w-[45px]">
-    <img src="" alt="logo" />
+    <img src="~/public/img/phpLogo.jpeg" alt="logo" />
   </div>
 </template>
 
