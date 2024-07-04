@@ -10,7 +10,7 @@
 
     <div class="flex">
       <Button @click="logout()" class="bg-transparent hover:bg-gray-400">
-        <Icon name="majesticons:logout" size="20" :color="iconColor"></Icon>
+        <Icon name="majesticons:logout" size="20" color="black"></Icon>
       </Button>
       <ColorModeToogle></ColorModeToogle>
     </div>
@@ -19,12 +19,6 @@
 
 <script lang="ts" setup>
 import { useAuthStore } from "@/stores/auth";
-
-const colorMode = useColorMode();
-const iconColor = ref(colorMode.value === "dark" ? "white" : "black");
-watch(colorMode, function () {
-  iconColor.value = colorMode.value === "dark" ? "white" : "black";
-});
 
 const emit = defineEmits(["toggleSidebar"]);
 function toggleSidebar() {
