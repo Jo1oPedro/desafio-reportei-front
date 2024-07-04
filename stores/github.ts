@@ -4,7 +4,7 @@ export const useGithubStore = defineStore({
   id: "myGithubStore",
   state: () => ({
     loading: false,
-    error: "",
+    error: {},
   }),
   actions: {
     async getAllUserRepositories() {
@@ -24,7 +24,8 @@ export const useGithubStore = defineStore({
         }
       );
       if (error.value) {
-        this.error = error.value.data;
+        this.error.title = "Erro ao recuperar os repositorios";
+        this.error.message = error.value.data;
       }
       return data.value;
     },
