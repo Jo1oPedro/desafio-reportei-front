@@ -35,7 +35,7 @@ function toggleSidebar() {
 
 const colorMode = useColorMode();
 const backgroundColor = ref(
-  colorMode.value === "dark" ? "bg-black" : "bg-white"
+  colorMode.value === "dark" ? "bg-[#0C1117]" : "bg-white"
 );
 watch(colorMode, function () {
   backgroundColor.value = colorMode.value === "dark" ? "bg-black" : "bg-white";
@@ -46,7 +46,7 @@ const items = ref([
     title: "Home",
     path: "/",
     icon: "material-symbols:home",
-  }
+  },
 ]);
 </script>
 
