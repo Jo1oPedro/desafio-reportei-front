@@ -2,7 +2,7 @@
   <div class="w-full">
     <div class="border-2 border-blue-200 rounded-full w-full p-4">
       <div class="flex gap-3 pb-1">
-        <h1 class="p-0">{{ repository.full_name }}</h1>
+        <h1 class="p-0 truncate">{{ repository.full_name }}</h1>
         <p class="rounded-full bg-gray-300 px-3 text-sm text-black">
           {{ repository.private ? "Private" : "Public" }}
         </p>
