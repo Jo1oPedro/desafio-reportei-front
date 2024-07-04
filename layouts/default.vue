@@ -1,5 +1,5 @@
 <template>
-  <div class="flex w-full h-full absolute">
+  <div class="flex w-full h-fit absolute">
     <transition name="sidebar">
       <LayoutSidebar
         v-if="sidebarOpen"
@@ -8,10 +8,7 @@
     </transition>
 
     <div class="w-full flex flex-col h-full relative">
-      <LayoutHead
-        :eyeIcon="eyeIcon"
-        @toggle-sidebar="toggleSidebar()"
-      ></LayoutHead>
+      <LayoutHead @toggle-sidebar="toggleSidebar()"></LayoutHead>
 
       <!-- Spacer to account for the fixed header height -->
       <div class="pt-6">
@@ -31,18 +28,9 @@
 </template>
 
 <script setup lang="ts">
-import { toast, ToastAction } from "@/components/ui/toast";
-import { storeToRefs } from "pinia";
-
 const sidebarOpen = ref(false);
-const eyeIcon = ref("mdi:hide");
 function toggleSidebar() {
   sidebarOpen.value = !sidebarOpen.value;
-  if (sidebarOpen.value) {
-    eyeIcon.value = "mdi:hide";
-    return;
-  }
-  eyeIcon.value = "mdi:show";
 }
 </script>
 
