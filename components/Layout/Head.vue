@@ -4,7 +4,7 @@
   >
     <div>
       <Button @click="toggleSidebar()" class="bg-transparent hover:bg-gray-400">
-        <Icon :name="eyeIcon" size="20" color="black"></Icon>
+        <Icon name="mdi:show" size="20" color="black"></Icon>
       </Button>
     </div>
 
@@ -19,8 +19,6 @@
 
 <script lang="ts" setup>
 import { useAuthStore } from "@/stores/auth";
-
-defineProps(["eyeIcon"]);
 
 const colorMode = useColorMode();
 const iconColor = ref(colorMode.value === "dark" ? "white" : "black");
