@@ -6,7 +6,7 @@ export default oauth.githubEventHandler({
   },
   async onSuccess(event, { user, tokens }) {
     try {
-      const response = await axios.post("http://nginx:8888/api/register", {
+      const response = await axios.post("http://localhost:8888/api/register", {
         name: user.name,
         email: user.email ?? "sememail@gmail.com",
         user_id: user.id.toString(),
