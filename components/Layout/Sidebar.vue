@@ -17,7 +17,7 @@
         v-for="item in items"
         :key="item.title"
         :to="item.path"
-        class="flex items-center gap-2 px-2 py-1 rounded transition cursor-pointer hover:bg-neutral-100 border-b-2"
+        class="flex items-center gap-2 px-2 py-1 rounded hover:scale-[101%] transition cursor-pointer border-b-2"
       >
         <Icon :name="item.icon" />
         <span>{{ item.title }}</span>
