@@ -1,42 +1,37 @@
 import { defineStore } from "pinia";
+import axios from "axios";
 
 export const useGithubStore = defineStore({
   id: "myGithubStore",
   state: () => ({
     loading: false,
     error: {},
-    page: 1,
   }),
   actions: {
     async getUserRepositories(page = 1, per_page = 10) {
       const token = useCookie("token");
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token.value}`,
+          "Content-Type": "application/json",
+        },
+      };
+
       try {
         this.loading = true;
-        this.error = {};
-
-        const config = {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        };
-
-        const data = await $fetch(
-          `http://localhost:7070/api/github/repositories`,
-          {
-            params: { page, per_page },
-            headers: config.headers,
-          }
+        const response = await axios.get(
+          `http://localhost:8888/api/github/repositories?page=${page}&per_page=${per_page}`,
+          config
         );
-
-        console.log("Repositories fetched:", data);
-        return data;
-      } catch (error) {
-        this.error.title = "Erro ao recuperar os repositorios";
-        this.error.message = error.data;
-        return [];
-      } finally {
         this.loading = false;
+        return response.data;
+      } catch (error) {
+        this.loading = false;
+        this.error.title = "Erro ao recuperar os repositorios";
+        this.error.message = error.response
+          ? error.response.data
+          : error.message;
+        return [];
       }
     },
   },
