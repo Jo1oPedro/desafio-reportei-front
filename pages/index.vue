@@ -8,11 +8,11 @@
           name="repositoryName"
           placeholder="Find a repository"
         />
-        <GithubRepository
+        <GithubRepositoryCard
           v-for="repository in repositories"
           :key="repository.id"
           :repository="repository"
-        ></GithubRepository>
+        ></GithubRepositoryCard>
       </div>
       <div class="flex justify-center items-center mt-4">
         <LayoutPagination
@@ -41,7 +41,6 @@ async function handlePageUpdate(newPage: number) {
   }
   page.value = newPage;
   repositories.value = await getUserRepositories(page.value, 5);
-  console.log(repositories);
 }
 </script>
 
