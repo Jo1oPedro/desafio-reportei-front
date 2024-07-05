@@ -5,29 +5,39 @@ export const useGithubStore = defineStore({
   state: () => ({
     loading: false,
     error: {},
+    page: 1,
   }),
   actions: {
-    async getAllUserRepositories() {
+    async getUserRepositories(page = 1, per_page = 10) {
       const token = useCookie("token");
-      const config = {
-        headers: {
-          Authorization: `Bearer ${token.value}`,
-          "Content-Type": "application/json",
-        },
-      };
-      const { data, error } = await useFetch(
-        "http://nginx:8888/api/github/repositories",
-        {
+      try {
+        this.loading = true;
+        this.error = {};
+
+        const config = {
           headers: {
-            Authorization: `Bearer ${token.value}`,
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
           },
-        }
-      );
-      if (error.value) {
+        };
+
+        const data = await $fetch(
+          `http://localhost:7070/api/github/repositories`,
+          {
+            params: { page, per_page },
+            headers: config.headers,
+          }
+        );
+
+        console.log("Repositories fetched:", data);
+        return data;
+      } catch (error) {
         this.error.title = "Erro ao recuperar os repositorios";
-        this.error.message = error.value.data;
+        this.error.message = error.data;
+        return [];
+      } finally {
+        this.loading = false;
       }
-      return data.value;
     },
   },
 });
