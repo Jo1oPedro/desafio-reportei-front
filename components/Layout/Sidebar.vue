@@ -18,6 +18,7 @@
         :key="item.title"
         :to="item.path"
         class="flex items-center gap-2 px-2 py-1 rounded hover:scale-[101%] transition cursor-pointer border-b-2"
+        @click="toggleSidebar"
       >
         <Icon :name="item.icon" />
         <span>{{ item.title }}</span>
