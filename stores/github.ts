@@ -18,7 +18,7 @@ export const useGithubStore = defineStore({
         },
       };
 
-      const response = this.makeRequest(
+      const response = await this.makeRequest(
         `http://localhost:8888/api/github/repositories?page=${page}&per_page=${per_page}&cache=${cache}`,
         config
       );
@@ -38,7 +38,7 @@ export const useGithubStore = defineStore({
         },
       };
 
-      return this.makeRequest(
+      return await this.makeRequest(
         `http://localhost:8888/api/github/repositories/${owner_name}/${repository_name}/${repository_id}`,
         config
       );
