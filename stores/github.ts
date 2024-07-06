@@ -6,9 +6,10 @@ export const useGithubStore = defineStore({
   state: () => ({
     loading: false,
     error: {},
+    total_public_repositories: 0,
   }),
   actions: {
-    async getUserRepositories(page = 1, per_page = 10) {
+    async getUserRepositories(page = 1, per_page = 10, cache = 1) {
       const token = useCookie("token");
       const config = {
         headers: {
@@ -17,10 +18,12 @@ export const useGithubStore = defineStore({
         },
       };
 
-      return this.makeRequest(
-        `http://localhost:8888/api/github/repositories?page=${page}&per_page=${per_page}`,
+      const response = this.makeRequest(
+        `http://localhost:8888/api/github/repositories?page=${page}&per_page=${per_page}&cache=${cache}`,
         config
       );
+      this.total_public_repositories = response.total_public_repositories;
+      return response;
     },
     async getSpecificUserRepository(
       owner_name: string,
