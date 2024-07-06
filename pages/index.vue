@@ -51,7 +51,6 @@ const { error } = storeToRefs(useGithubStore());
 
 const response = ref(await getUserRepositories(1, 2));
 const total = ref(response.value.total_pages_number * 2);
-console.log("total de paginas: " + total.value);
 const page = ref(1);
 
 async function handlePageUpdate(newPage: number) {
@@ -61,9 +60,7 @@ async function handlePageUpdate(newPage: number) {
   page.value = newPage;
   response.value = await getUserRepositories(page.value, 2);
 }
-
 async function handleNoCachedGetAllRepositorysRequest() {
-  console.log("entrou nessa porra");
   response.value = await getUserRepositories(page.value, 2, 0);
 }
 //console.log(response.value.repositories);
