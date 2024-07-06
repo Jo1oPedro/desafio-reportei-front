@@ -37,7 +37,7 @@ function toggleSidebar() {
 }
 
 const { total_public_repositories } = storeToRefs(useGithubStore());
-console.log(total_public_repositories.value);
+
 const { logUserOut } = useAuthStore();
 function logout() {
   logUserOut();
