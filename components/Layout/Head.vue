@@ -17,8 +17,8 @@
         <ColorModeToogle></ColorModeToogle>
       </div>
     </div>
-    <div class="flex">
-      <Icon name="ph:book-bold" size="20" @click="toggleSidebar()"></Icon>
+    <div class="flex ml-4 gap-2">
+      <Icon name="ph:book-bold" size="20" color="white"></Icon>
       <p class="text-white text-sm">
         Repositories: {{ total_public_repositories }}
       </p>
