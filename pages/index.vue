@@ -68,7 +68,7 @@ const selectedPaginationOption = ref(5);
 const paginationOptions = [5, 10, 15, 20, 25];
 async function handlePaginationChange() {
   response.value = await getUserRepositories(
-    page.value,
+    1,
     +selectedPaginationOption.value
   );
 }
