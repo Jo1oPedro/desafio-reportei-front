@@ -3,16 +3,18 @@
     <LayoutAlert v-if="error.message" :error="error" />
     <div v-else>
       <div class="container flex flex-col gap-3">
-        <div class="flex gap-3">
+        <div class="flex gap-3 flex-col items-center sm:flex-row mb-4">
           <Input
             type="text"
             name="repositoryName"
             placeholder="Find a repository"
-            class="max-w-[50%] border-2 border-blue-300"
+            class="sm:max-w-[50%] border-2 border-blue-300"
           />
           <LayoutHoverCard>
             <template v-slot:trigger>
-              <Button>Refresh repositories</Button>
+              <Button @click="handleNoCachedGetAllRepositorysRequest"
+                >Refresh repositories</Button
+              >
             </template>
             <template v-slot:message>
               Use in case you have created a new repository and can"t find it
@@ -30,8 +32,9 @@
       <div class="flex justify-center items-center mt-4">
         <LayoutPagination
           :total="total"
-          :itemsPerPage="5"
+          :itemsPerPage="2"
           @update:page="handlePageUpdate"
+          class="max-w-[80%]"
         ></LayoutPagination>
       </div>
     </div>
@@ -46,8 +49,9 @@ import { storeToRefs } from "pinia";
 const { getUserRepositories } = useGithubStore();
 const { error } = storeToRefs(useGithubStore());
 
-const response = ref(await getUserRepositories(1, 5));
-const total = ref(response.value.total_repositories);
+const response = ref(await getUserRepositories(1, 2));
+const total = ref(response.value.total_pages_number * 2);
+console.log("total de paginas: " + total.value);
 const page = ref(1);
 
 async function handlePageUpdate(newPage: number) {
@@ -55,7 +59,12 @@ async function handlePageUpdate(newPage: number) {
     return;
   }
   page.value = newPage;
-  response.value = await getUserRepositories(page.value, 5);
+  response.value = await getUserRepositories(page.value, 2);
+}
+
+async function handleNoCachedGetAllRepositorysRequest() {
+  console.log("entrou nessa porra");
+  response.value = await getUserRepositories(page.value, 2, 0);
 }
 //console.log(response.value.repositories);
 </script>
