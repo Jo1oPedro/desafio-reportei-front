@@ -3,7 +3,7 @@
     :to="`/repositories/${repository.owner.login}/${repository.name}/${repository.id}`"
   >
     <div class="w-full">
-      <div class="border-2 border-blue-200 rounded-full w-full p-4">
+      <div class="border-y-2 border-blue-400 w-full p-4">
         <div class="flex gap-3 pb-1">
           <h1 class="p-0 truncate">{{ repository.name }}</h1>
           <p class="rounded-full bg-gray-300 px-3 text-sm text-black">
