@@ -1,9 +1,11 @@
 <template>
-  <div class="overflow-hidden rounded-lg w-[45px]">
-    <img src="~/public/img/phpLogo.jpeg" alt="logo" />
+  <div class="overflow-hidden rounded-full w-[45px]">
+    <img :src="avatar_url" alt="logo" />
   </div>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+const avatar_url = useCookie("authenticatedUser").value.avatar_url;
+</script>
 
 <style></style>
