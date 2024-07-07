@@ -9,7 +9,7 @@
   >
     <PaginationList v-slot="{ items }" class="flex items-center gap-1">
       <PaginationFirst @click="handlePageUpdate(1)" />
-      <PaginationPrev @click="handlePageUpdate(page)" />
+      <PaginationPrev @click="handlePageUpdate(page - 1)" />
 
       <template v-for="(item, index) in items">
         <PaginationListItem
@@ -29,7 +29,7 @@
         <PaginationEllipsis v-else :key="item.type" :index="index" />
       </template>
 
-      <PaginationNext @click="handlePageUpdate(page)" />
+      <PaginationNext @click="handlePageUpdate(page + 1)" />
       <PaginationLast
         @click="handlePageUpdate(Math.ceil(total / itemsPerPage))"
       />
