@@ -29,6 +29,7 @@
               id="itemPerPagePagination"
               v-model="selectedPaginationOption"
               @change="handlePaginationChange"
+              class="text-black"
             >
               <option
                 v-for="option in paginationOptions"
