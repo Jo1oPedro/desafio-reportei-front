@@ -99,7 +99,6 @@ const total = ref(
 );
 
 async function handlePageUpdate(newPage: number) {
-  console.log(newPage);
   if (page.value == newPage) {
     return;
   }
