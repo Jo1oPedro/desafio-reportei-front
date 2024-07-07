@@ -10,6 +10,7 @@ export const useGithubStore = defineStore({
   }),
   actions: {
     async getUserRepositories(page = 1, per_page = 10, cache = 1) {
+      this.loading = true;
       const token = useCookie("token");
       const config = {
         headers: {
@@ -22,6 +23,7 @@ export const useGithubStore = defineStore({
         `http://localhost:8888/api/github/repositories?page=${page}&per_page=${per_page}&cache=${cache}`,
         config
       );
+
       this.total_public_repositories = response.total_public_repositories;
       return response;
     },
@@ -30,6 +32,7 @@ export const useGithubStore = defineStore({
       repository_name: string,
       repository_id: string
     ) {
+      this.loading = true;
       const token = useCookie("token");
       const config = {
         headers: {
@@ -38,16 +41,19 @@ export const useGithubStore = defineStore({
         },
       };
 
-      return await this.makeRequest(
+      const response = await this.makeRequest(
         `http://localhost:8888/api/github/repositories/${owner_name}/${repository_name}/${repository_id}`,
         config
       );
+
+      return response;
     },
     async getRepositoryCommits(
       owner_name: string,
       repository_name: string,
       repository_id: string
     ) {
+      this.loading = true;
       const token = useCookie("token");
       const config = {
         headers: {
@@ -56,14 +62,15 @@ export const useGithubStore = defineStore({
         },
       };
 
-      return await this.makeRequest(
+      const response = await this.makeRequest(
         `http://localhost:8888/api/github/repository/commits/${owner_name}/${repository_name}/${repository_id}`,
         config
       );
+
+      return response;
     },
     async makeRequest(url: string, config: object) {
       try {
-        this.loading = true;
         const response = await axios.get(url, config);
         this.loading = false;
         return response.data;
