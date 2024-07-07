@@ -18,7 +18,6 @@ export default oauth.githubEventHandler({
       setCookie(event, "authenticatedUser", JSON.stringify(response.data.user));
       return sendRedirect(event, "/");
     } catch (error) {
-      console.log(error);
       throw createError({
         statusCode: 401,
         statusMessage: "Ocorreu um erro ao autenticar",
@@ -26,7 +25,6 @@ export default oauth.githubEventHandler({
     }
   },
   onError(event, error) {
-    console.log(error);
     throw createError({
       statusCode: 401,
       statusMessage: "Ocorreu um erro ao autenticar",
