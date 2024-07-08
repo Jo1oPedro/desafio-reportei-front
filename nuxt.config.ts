@@ -20,6 +20,9 @@ export default defineNuxtConfig({
         clientSecret: process.env.GITHUB_CLIENT_SECRET,
       },
     },
+    public: {
+      url: "http://localhost:8888/",
+    },
   },
   shadcn: {
     /**
