@@ -52,7 +52,7 @@
           <div v-if="!loading" class="flex flex-col gap-3">
             <GithubRepositoryCard
               v-for="repository in response?.repositories"
-              :key="repository?.id"
+              :key="repository.id"
               :repository="repository"
               class="mb-2"
             ></GithubRepositoryCard>
