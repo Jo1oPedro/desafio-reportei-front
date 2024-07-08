@@ -16,7 +16,7 @@
           <div class="absolute top-0 right-0"></div>
         </div>
 
-        <div class="grow flex">
+        <div class="">
           <slot />
         </div>
       </div>

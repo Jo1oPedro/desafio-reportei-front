@@ -9,6 +9,8 @@
             name="repositoryName"
             placeholder="Find a repository"
             class="sm:max-w-[50%] border-2 border-blue-300"
+            v-model.trim="repositoryName"
+            @blur="getSpecifiedRepository"
           />
           <LayoutHoverCard>
             <template v-slot:trigger>
@@ -82,14 +84,14 @@ const selectedPaginationOption = ref(5);
 const paginationOptions = [5, 10, 15, 20, 25];
 const page = ref(1);
 async function handlePaginationChange() {
+  page.value = 1;
   response.value = await getUserRepositories(
-    1,
+    page.value,
     +selectedPaginationOption.value
   );
-  page.value = 1;
 }
 
-const { getUserRepositories } = useGithubStore();
+const { getUserRepositories, getUserRepository } = useGithubStore();
 const { error, loading } = storeToRefs(useGithubStore());
 const response = ref(
   await getUserRepositories(1, selectedPaginationOption.value)
@@ -110,12 +112,27 @@ async function handlePageUpdate(newPage: number) {
   total.value =
     response.value.total_pages_number * selectedPaginationOption.value;
 }
+
 async function handleNoCachedGetAllRepositorysRequest() {
   response.value = await getUserRepositories(
     page.value,
     selectedPaginationOption.value,
     0
   );
+  total.value =
+    response.value.total_pages_number * selectedPaginationOption.value;
+}
+
+const repositoryName = ref("");
+async function getSpecifiedRepository() {
+  if (repositoryName.value !== "") {
+    response.value.repositories = ref([
+      await getUserRepository(repositoryName.value),
+    ]);
+    total.value = 1;
+    return;
+  }
+  response.value = await getUserRepositories(1, selectedPaginationOption.value);
   total.value =
     response.value.total_pages_number * selectedPaginationOption.value;
 }
