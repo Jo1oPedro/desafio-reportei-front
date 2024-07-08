@@ -135,7 +135,7 @@ async function handleNoCachedGetAllRepositorysRequest() {
   response.value = await getUserRepositories(
     page.value,
     selectedPaginationOption.value,
-    0
+    "no-cache"
   );
   total.value =
     response.value.total_pages_number * selectedPaginationOption.value;

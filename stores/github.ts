@@ -9,12 +9,13 @@ export const useGithubStore = defineStore({
     total_public_repositories: 0,
   }),
   actions: {
-    async getUserRepositories(page = 1, per_page = 10, cache = 1) {
+    async getUserRepositories(page = 1, per_page = 10, cache = "cache") {
       this.error = {};
       this.loading = true;
       const token = useCookie("token");
       const config = {
         headers: {
+          "Cache-Control": cache,
           Authorization: `Bearer ${token.value}`,
           "Content-Type": "application/json",
         },
@@ -22,7 +23,7 @@ export const useGithubStore = defineStore({
 
       const response = await axios
         .get(
-          `http://localhost:8888/api/github/repositories?page=${page}&per_page=${per_page}&cache=${cache}`,
+          `http://localhost:8888/api/github/repositories?page=${page}&per_page=${per_page}`,
           config
         )
         .catch((error) => {
