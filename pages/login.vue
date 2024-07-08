@@ -1,16 +1,18 @@
 <template>
-  <div class="flex w-full h-full bg-gray-100">
+  <div class="flex w-full h-full">
     <div class="container flex h-screen items-center justify-center">
       <div
         class="flex flex-col gap-5 justify-center items-center min-w-[50%] min-h-[50%]"
       >
-        <h1 class="text-2xl font-semibold">Welcome back</h1>
+        <h1 class="text-2xl font-semibold text-black">Welcome back</h1>
         <div class="bg-gray-200 p-5 rounded-full flex gap-3">
           <img
             src="//d9hhrg4mnvzow.cloudfront.net/try.digitalocean.com/cloud/22e16791-github-icon.svg"
             alt=""
           />
-          <NuxtLink to="api/auth/github" external>Login with github</NuxtLink>
+          <NuxtLink to="api/auth/github" external class="text-black"
+            >Login with github</NuxtLink
+          >
         </div>
       </div>
     </div>
