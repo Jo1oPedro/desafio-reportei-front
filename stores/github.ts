@@ -10,6 +10,7 @@ export const useGithubStore = defineStore({
   }),
   actions: {
     async getUserRepositories(page = 1, per_page = 10, cache = 1) {
+      this.error = {};
       this.loading = true;
       const token = useCookie("token");
       const config = {
@@ -19,15 +20,22 @@ export const useGithubStore = defineStore({
         },
       };
 
-      const response = await this.makeRequest(
-        `http://localhost:8888/api/github/repositories?page=${page}&per_page=${per_page}&cache=${cache}`,
-        config
-      );
+      const response = await axios
+        .get(
+          `http://localhost:8888/api/github/repositories?page=${page}&per_page=${per_page}&cache=${cache}`,
+          config
+        )
+        .catch((error) => {
+          this.error.message = error.response.data.message;
+          return [];
+        });
 
-      this.total_public_repositories = response.total_public_repositories;
-      return response;
+      this.total_public_repositories = response.data.total_public_repositories;
+      this.loading = false;
+      return response.data;
     },
     async getUserRepository(name: string) {
+      this.error = {};
       this.loading = true;
       const token = useCookie("token");
       const config = {
@@ -37,35 +45,26 @@ export const useGithubStore = defineStore({
         },
       };
 
-      const response = await this.makeRequest(
-        `http://localhost:8888/api/github/repository/${name}`,
-        config
-      );
+      const response = await axios
+        .get(`http://localhost:8888/api/github/repository/${name}`, config)
+        .catch((error) => {
+          if (error.response.status == 404) {
+            this.error.specificRepositoryError = error.response.data.message;
+            return [];
+          }
+          this.error.message = error.response.data.message;
+          return [];
+        });
 
-      return response;
-    },
-    async getSpecificUserRepository(repository_name: string) {
-      this.loading = true;
-      const token = useCookie("token");
-      const config = {
-        headers: {
-          Authorization: `Bearer ${token.value}`,
-          "Content-Type": "application/json",
-        },
-      };
-
-      const response = await this.makeRequest(
-        `http://localhost:8888/api/github/repository/${repository_name}`,
-        config
-      );
-
-      return response;
+      this.loading = false;
+      return response.data;
     },
     async getRepositoryCommits(
       owner_name: string,
       repository_name: string,
       repository_id: string
     ) {
+      this.error = {};
       this.loading = true;
       const token = useCookie("token");
       const config = {
@@ -75,26 +74,18 @@ export const useGithubStore = defineStore({
         },
       };
 
-      const response = await this.makeRequest(
-        `http://localhost:8888/api/github/repository/commits/${owner_name}/${repository_name}/${repository_id}`,
-        config
-      );
+      const response = await axios
+        .get(
+          `http://localhost:8888/api/github/repository/commits/${owner_name}/${repository_name}/${repository_id}`,
+          config
+        )
+        .catch((error) => {
+          this.error.message = error.response.data.message;
+          return [];
+        });
 
-      return response;
-    },
-    async makeRequest(url: string, config: object) {
-      try {
-        this.error = {};
-        const response = await axios.get(url, config);
-        this.loading = false;
-        return response.data;
-      } catch (error) {
-        this.loading = false;
-        this.error.message = error.response
-          ? error.response.data.message
-          : error.message;
-        return [];
-      }
+      this.loading = false;
+      return response?.data ?? [];
     },
   },
 });
