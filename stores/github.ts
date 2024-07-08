@@ -42,14 +42,9 @@ export const useGithubStore = defineStore({
         config
       );
 
-      this.total_public_repositories = response.total_public_repositories;
       return response;
     },
-    async getSpecificUserRepository(
-      owner_name: string,
-      repository_name: string,
-      repository_id: string
-    ) {
+    async getSpecificUserRepository(repository_name: string) {
       this.loading = true;
       const token = useCookie("token");
       const config = {
@@ -60,7 +55,7 @@ export const useGithubStore = defineStore({
       };
 
       const response = await this.makeRequest(
-        `http://localhost:8888/api/github/repositories/${owner_name}/${repository_name}/${repository_id}`,
+        `http://localhost:8888/api/github/repository/${repository_name}`,
         config
       );
 

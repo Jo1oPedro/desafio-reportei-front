@@ -19,9 +19,7 @@ const { owner_name, repository_name, repository_id } = useRoute().params;
 const { getSpecificUserRepository, getRepositoryCommits } = useGithubStore();
 const { error } = storeToRefs(useGithubStore());
 
-const repositories = ref(
-  await getSpecificUserRepository(owner_name, repository_name, repository_id)
-);
+const repositories = ref(await getSpecificUserRepository(repository_name));
 
 const commits = ref(
   await getRepositoryCommits(owner_name, repository_name, repository_id)
