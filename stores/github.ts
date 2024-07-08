@@ -63,13 +63,15 @@ export const useGithubStore = defineStore({
     async getRepositoryCommits(
       owner_name: string,
       repository_name: string,
-      repository_id: string
+      repository_id: string,
+      cache: "cache"
     ) {
       this.error = {};
       this.loading = true;
       const token = useCookie("token");
       const config = {
         headers: {
+          "Cache-Control": cache,
           Authorization: `Bearer ${token.value}`,
           "Content-Type": "application/json",
         },
