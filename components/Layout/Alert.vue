@@ -1,7 +1,7 @@
 <template>
   <Alert class="flex items-center justify-center gap-3 flex-col border-red-500">
     <AlertDescription class="text-2xl">
-      {{ error.message }}
+      {{ error }}
     </AlertDescription>
   </Alert>
 </template>
@@ -10,7 +10,7 @@
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 defineProps({
   error: {
-    type: Object,
+    type: String,
     required: true,
   },
 });
