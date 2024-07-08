@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <LayoutAlert v-if="error.message" :error="error.message" />
-    <div v-else>
+    <div>
       <div class="flex flex-col gap-3">
         <div class="flex gap-3 flex-col items-center sm:flex-row mb-4">
           <Input
@@ -51,8 +51,8 @@
         <div v-else>
           <div v-if="!loading" class="flex flex-col gap-3">
             <GithubRepositoryCard
-              v-for="repository in response.repositories"
-              :key="repository.id"
+              v-for="repository in response?.repositories"
+              :key="repository?.id"
               :repository="repository"
               class="mb-2"
             ></GithubRepositoryCard>
@@ -89,6 +89,27 @@ import { Skeleton } from "@/components/ui/skeleton";
 const selectedPaginationOption = ref(5);
 const paginationOptions = [5, 10, 15, 20, 25];
 const page = ref(1);
+
+const { getUserRepositories, getUserRepository } = useGithubStore();
+const { error, loading } = storeToRefs(useGithubStore());
+const response = ref(null);
+const total = ref(0);
+
+onMounted(async () => {
+  try {
+    response.value = await getUserRepositories(
+      1,
+      selectedPaginationOption.value
+    );
+    total.value =
+      response.value.total_pages_number * selectedPaginationOption.value;
+  } catch (e) {
+    error.value = e.message;
+  } finally {
+    loading.value = false;
+  }
+});
+
 async function handlePaginationChange() {
   page.value = 1;
   response.value = await getUserRepositories(
@@ -96,15 +117,6 @@ async function handlePaginationChange() {
     +selectedPaginationOption.value
   );
 }
-
-const { getUserRepositories, getUserRepository } = useGithubStore();
-const { error, loading } = storeToRefs(useGithubStore());
-const response = ref(
-  await getUserRepositories(1, selectedPaginationOption.value)
-);
-const total = ref(
-  response.value.total_pages_number * selectedPaginationOption.value
-);
 
 async function handlePageUpdate(newPage: number) {
   if (page.value == newPage) {
