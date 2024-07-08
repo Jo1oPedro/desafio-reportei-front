@@ -4,7 +4,7 @@
     <!--<div v-for="repository in repositories" class="container">
       <p class="text-white">{{ repository.url }}</p>
     </div>-->
-    <LayoutAlert v-if="error.message" :error="error" />
+    <LayoutAlert v-if="error.message" :error="error.message" />
     <div class="min-h-[300px]" v-else>
       <Line :data="chartData" :options="chartOptions" />
     </div>
@@ -16,10 +16,10 @@ import { useGithubStore } from "@/stores/github";
 
 const { owner_name, repository_name, repository_id } = useRoute().params;
 
-const { getSpecificUserRepository, getRepositoryCommits } = useGithubStore();
+const { getUserRepository, getRepositoryCommits } = useGithubStore();
 const { error } = storeToRefs(useGithubStore());
 
-const repositories = ref(await getSpecificUserRepository(repository_name));
+const repositories = ref(await getUserRepository(repository_name));
 
 const commits = ref(
   await getRepositoryCommits(owner_name, repository_name, repository_id)
