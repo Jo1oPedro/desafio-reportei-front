@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <LayoutAlert v-if="error.message" :error="error" />
+    <LayoutAlert v-if="error.message" :error="error.message" />
     <div v-else>
       <div class="flex flex-col gap-3">
         <div class="flex gap-3 flex-col items-center sm:flex-row mb-4">
@@ -44,29 +44,35 @@
           </div>
         </div>
 
-        <div v-if="!loading" class="flex flex-col gap-3">
-          <GithubRepositoryCard
-            v-for="repository in response.repositories"
-            :key="repository.id"
-            :repository="repository"
-            class="mb-2"
-          ></GithubRepositoryCard>
-          <div class="flex justify-center items-center mt-4">
-            <LayoutPagination
-              :total="total"
-              :itemsPerPage="selectedPaginationOption"
-              :page="page"
-              @update:page="handlePageUpdate"
-              class="max-w-[80%]"
-            ></LayoutPagination>
-          </div>
-        </div>
+        <LayoutAlert
+          v-if="error.specificRepositoryError"
+          :error="error.specificRepositoryError"
+        />
         <div v-else>
-          <div class="w-full">
-            <Skeleton
-              class="w-full h-[100px] mt-3"
-              v-for="quantity in selectedPaginationOption"
-            />
+          <div v-if="!loading" class="flex flex-col gap-3">
+            <GithubRepositoryCard
+              v-for="repository in response.repositories"
+              :key="repository.id"
+              :repository="repository"
+              class="mb-2"
+            ></GithubRepositoryCard>
+            <div class="flex justify-center items-center mt-4">
+              <LayoutPagination
+                :total="total"
+                :itemsPerPage="selectedPaginationOption"
+                :page="page"
+                @update:page="handlePageUpdate"
+                class="max-w-[80%]"
+              ></LayoutPagination>
+            </div>
+          </div>
+          <div v-else>
+            <div class="w-full">
+              <Skeleton
+                class="w-full h-[100px] mt-3"
+                v-for="quantity in selectedPaginationOption"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -132,7 +138,10 @@ async function getSpecifiedRepository() {
     total.value = 1;
     return;
   }
-  response.value = await getUserRepositories(1, selectedPaginationOption.value);
+  response.value = await getUserRepositories(
+    page.value,
+    selectedPaginationOption.value
+  );
   total.value =
     response.value.total_pages_number * selectedPaginationOption.value;
 }
