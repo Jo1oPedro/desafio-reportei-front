@@ -6,7 +6,6 @@ export const useGithubStore = defineStore({
   state: () => ({
     loading: false,
     error: {},
-    total_public_repositories: 0,
   }),
   actions: {
     async getUserRepositories(page = 1, per_page = 10, cache = "cache") {
@@ -31,7 +30,8 @@ export const useGithubStore = defineStore({
           return [];
         });
 
-      this.total_public_repositories = response.data.total_public_repositories;
+      const total_public_repositories = useCookie("total_public_repositories");
+      total_public_repositories.value = response.data.total_public_repositories;
       this.loading = false;
       return response.data;
     },

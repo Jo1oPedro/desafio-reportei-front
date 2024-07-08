@@ -28,15 +28,13 @@
 
 <script lang="ts" setup>
 import { useAuthStore } from "@/stores/auth";
-import { useGithubStore } from "@/stores/github";
-import { storeToRefs } from "pinia";
 
 const emit = defineEmits(["toggleSidebar"]);
 function toggleSidebar() {
   emit("toggleSidebar");
 }
 
-const { total_public_repositories } = storeToRefs(useGithubStore());
+const total_public_repositories = useCookie("total_public_repositories").value;
 
 const { logUserOut } = useAuthStore();
 function logout() {
