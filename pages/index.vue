@@ -20,7 +20,7 @@
             </template>
             <template v-slot:message>
               Use in case you have created a new repository and the total of
-              repositories here don"t reflect it
+              repositories don"t reflect it
             </template>
           </LayoutHoverCard>
           <div>
