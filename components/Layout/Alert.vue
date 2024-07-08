@@ -1,7 +1,6 @@
 <template>
   <Alert class="flex items-center justify-center gap-3 flex-col border-red-500">
-    <AlertTitle>{{ error.title }}</AlertTitle>
-    <AlertDescription>
+    <AlertDescription class="text-2xl">
       {{ error.message }}
     </AlertDescription>
   </Alert>
