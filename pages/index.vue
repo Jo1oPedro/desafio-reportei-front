@@ -10,7 +10,7 @@
             placeholder="Find a repository"
             class="sm:max-w-[50%] border-2 border-blue-300"
             v-model.trim="repositoryName"
-            @blur="getSpecifiedRepository"
+            v-on:keyup.enter="getSpecifiedRepository"
           />
           <LayoutHoverCard>
             <template v-slot:trigger>
