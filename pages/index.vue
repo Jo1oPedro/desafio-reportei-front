@@ -115,6 +115,8 @@ async function handlePaginationChange() {
     page.value,
     +selectedPaginationOption.value
   );
+  total.value =
+    response.value.total_pages_number * selectedPaginationOption.value;
 }
 
 async function handlePageUpdate(newPage: number) {
