@@ -11,8 +11,6 @@ export const useAuthStore = defineStore({
       token.value = null;
       const authenticatedUser = useCookie("authenticatedUser");
       authenticatedUser.value = null;
-      const total_public_repositories = useCookie("total_public_repositories");
-      total_public_repositories.value = null;
       useRouter().push("/login");
     },
   },

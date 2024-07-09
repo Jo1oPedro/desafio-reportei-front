@@ -34,7 +34,13 @@ function toggleSidebar() {
   emit("toggleSidebar");
 }
 
-const total_public_repositories = useCookie("total_public_repositories").value;
+const total_public_repositories = ref(0);
+onMounted(() => {
+  const { $listen } = useNuxtApp();
+  $listen("updateTotalRepositories", (totalRepositories) => {
+    total_public_repositories.value = totalRepositories;
+  });
+});
 
 const { logUserOut } = useAuthStore();
 function logout() {

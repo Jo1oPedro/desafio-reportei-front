@@ -9,6 +9,7 @@ export const useGithubStore = defineStore({
   }),
   actions: {
     async getUserRepositories(page = 1, per_page = 10, cache = "cache") {
+      const { $event } = useNuxtApp();
       const runtimeConfig = useRuntimeConfig();
       this.error = {};
       this.loading = true;
@@ -31,8 +32,11 @@ export const useGithubStore = defineStore({
           return [];
         });
 
-      const total_public_repositories = useCookie("total_public_repositories");
-      total_public_repositories.value = response.data.total_public_repositories;
+      $event(
+        "updateTotalRepositories",
+        response.data.total_public_repositories
+      );
+
       this.loading = false;
       return response.data;
     },
