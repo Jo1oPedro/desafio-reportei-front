@@ -10,7 +10,7 @@
 
 # Hospedagem
 
-- Atualmente o sistema está hospedado em uma vps2 da hostinger sobre o domínio http://www.desafio-reportei.ejsocial.com/ ou ip: http://85.31.62.148:3000
+- Atualmente o sistema está hospedado em uma vps2 da hostinger sobre o domínio http://desafio-reportei.ejsocial.com/ ou ip: http://85.31.62.148:3000
 
 - Configurações da vps:
   ```
