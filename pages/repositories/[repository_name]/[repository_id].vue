@@ -45,11 +45,7 @@ const totalCommitsNumber = ref(0);
 onMounted(async () => {
   try {
     repositories.value = await getUserRepository(repository_name);
-    commits.value = await getRepositoryCommits(
-      owner_name,
-      repository_name,
-      repository_id
-    );
+    commits.value = await getRepositoryCommits(repository_name, repository_id);
     buildGraph(chartData, commits, totalCommitsNumber);
   } catch (e) {
     error.value = e.message;
@@ -65,7 +61,6 @@ function formatDate(key) {
 
 async function handleNoCachedCommitsRequest() {
   commits.value = await getRepositoryCommits(
-    owner_name,
     repository_name,
     repository_id,
     "no-cache"

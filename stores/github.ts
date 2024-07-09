@@ -61,7 +61,6 @@ export const useGithubStore = defineStore({
       return response.data;
     },
     async getRepositoryCommits(
-      owner_name: string,
       repository_name: string,
       repository_id: string,
       cache: "cache"
@@ -79,7 +78,7 @@ export const useGithubStore = defineStore({
 
       const response = await axios
         .get(
-          `http://localhost:8888/api/github/repository/commits/${owner_name}/${repository_name}/${repository_id}`,
+          `http://localhost:8888/api/github/repository/commits/${repository_name}/${repository_id}`,
           config
         )
         .catch((error) => {

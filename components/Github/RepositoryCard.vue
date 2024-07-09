@@ -1,7 +1,5 @@
 <template>
-  <NuxtLink
-    :to="`/repositories/${repository.owner.login}/${repository.name}/${repository.id}`"
-  >
+  <NuxtLink :to="`/repositories/${repository.name}/${repository.id}`">
     <div class="w-full">
       <div class="flex flex-col gap-2 border-y-2 border-blue-400 w-full p-4">
         <div class="flex flex-col sm:flex-row gap-3 pb-1">
