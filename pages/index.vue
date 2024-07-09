@@ -81,7 +81,6 @@
 </template>
 
 <script setup lang="ts">
-console.log(useCookie("token").value);
 import { useGithubStore } from "@/stores/github";
 import { storeToRefs } from "pinia";
 import { Skeleton } from "@/components/ui/skeleton";
