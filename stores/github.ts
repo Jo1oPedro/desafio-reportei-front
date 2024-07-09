@@ -9,6 +9,7 @@ export const useGithubStore = defineStore({
   }),
   actions: {
     async getUserRepositories(page = 1, per_page = 10, cache = "cache") {
+      const runtimeConfig = useRuntimeConfig();
       this.error = {};
       this.loading = true;
       const token = useCookie("token");
@@ -22,7 +23,7 @@ export const useGithubStore = defineStore({
 
       const response = await axios
         .get(
-          `http://localhost:8888/api/github/repositories?page=${page}&per_page=${per_page}`,
+          `${runtimeConfig.public.url}/api/github/repositories?page=${page}&per_page=${per_page}`,
           config
         )
         .catch((error) => {
@@ -36,6 +37,7 @@ export const useGithubStore = defineStore({
       return response.data;
     },
     async getUserRepository(name: string) {
+      const runtimeConfig = useRuntimeConfig();
       this.error = {};
       this.loading = true;
       const token = useCookie("token");
@@ -47,7 +49,10 @@ export const useGithubStore = defineStore({
       };
 
       const response = await axios
-        .get(`http://localhost:8888/api/github/repository/${name}`, config)
+        .get(
+          `${runtimeConfig.public.url}/api/github/repository/${name}`,
+          config
+        )
         .catch((error) => {
           if (error.response.status == 404) {
             this.error.specificRepositoryError = error.response.data.message;
@@ -65,6 +70,7 @@ export const useGithubStore = defineStore({
       repository_id: string,
       cache: "cache"
     ) {
+      const runtimeConfig = useRuntimeConfig();
       this.error = {};
       this.loading = true;
       const token = useCookie("token");
@@ -78,7 +84,7 @@ export const useGithubStore = defineStore({
 
       const response = await axios
         .get(
-          `http://localhost:8888/api/github/repository/commits/${repository_name}/${repository_id}`,
+          `${runtimeConfig.public.url}/api/github/repository/commits/${repository_name}/${repository_id}`,
           config
         )
         .catch((error) => {
