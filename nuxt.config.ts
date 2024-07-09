@@ -20,7 +20,7 @@ export default defineNuxtConfig({
       },
     },
     public: {
-      url: "http://localhost:8888/",
+      url: "http://localhost:8888",
     },
   },
   shadcn: {
