@@ -19,27 +19,25 @@
     </div>
     <div class="flex ml-4 gap-2">
       <Icon name="ph:book-bold" size="20" color="white"></Icon>
-      <p class="text-white text-sm">
-        Repositories: {{ total_public_repositories }}
-      </p>
+      <p class="text-white text-sm">Repositories: {{ total_repositories }}</p>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { useAuthStore } from "@/stores/auth";
+import { useGithubStore } from "@/stores/github";
+import { storeToRefs } from "pinia";
 
 const emit = defineEmits(["toggleSidebar"]);
 function toggleSidebar() {
   emit("toggleSidebar");
 }
 
-const total_public_repositories = ref(0);
+const total_repositories = ref(0);
 onMounted(() => {
-  const { $listen } = useNuxtApp();
-  $listen("updateTotalRepositories", (totalRepositories) => {
-    total_public_repositories.value = totalRepositories;
-  });
+  const { total_public_repositories } = storeToRefs(useGithubStore());
+  total_repositories.value = total_public_repositories;
 });
 
 const { logUserOut } = useAuthStore();
